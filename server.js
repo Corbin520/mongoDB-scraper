@@ -72,9 +72,15 @@ app.get("/scrape", function (req, res) {
 });
 
 // get the items out of our database
-// app.get("/news", function(req, res) {
-//     db.News.find({}).pretty()
-// })
+app.get("/news", function(req, res) {
+    db.News.find({})
+    .then(function(dbNews) {
+        res.json(dbNews)
+    })
+    .catch(function(dbNews) {
+        console.log(err)
+    })
+});
 
 
 // Starting the server on PORT
