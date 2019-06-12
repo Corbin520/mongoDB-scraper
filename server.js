@@ -10,7 +10,7 @@ var PORT = 4000;
 var app = express()
 
 // Require all models
-var db = require("./models/news");
+var db = require("./models");
 
 app.use(logger("dev"));
 
@@ -18,8 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // this will hook us to heroku
-// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-// mongoose.connect(MONGODB_URI);
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.connect(MONGODB_URI);
 
 
 // home route
@@ -37,7 +37,7 @@ app.get("/scrape", function (req, res) {
         res.json("scrape route")
         // assign cheerio to '$'
         var $ = cheerio.load(response.data);
-        var results = []
+        var results = {};
 
         $(".story").each(function (i, element) {
 
@@ -52,20 +52,21 @@ app.get("/scrape", function (req, res) {
                 .text()
 
             // * URL - the url to the original article
-            results.URL = $(this)
+            results.link = $(this)
                 .children("a")
                 .attr("href");
+            
 
             // create database and store our scrape to it
-            db.News.insert(results)
+            db.News.create(results)
               .then(function(dbNews) {
-                console.log(dbNews)
+                // console.log(dbNews)
               })
               .catch(function(err) {
-                console.log(err)
+                // console.log(err)
               })
         });
-        console.log(results)
+        // console.log(results)
         console.log("////////////////////")  
     });
 });
