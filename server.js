@@ -1,6 +1,7 @@
 var express = require("express");
 var exphbs = require("express-handlebars");
 var mongoose = require("mongoose");
+var logger = require("morgan");
 var cheerio = require("cheerio");
 var axios = require("axios");
 
@@ -10,6 +11,11 @@ var app = express()
 
 // Require all models
 var db = require("./models/news");
+
+app.use(logger("dev"));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // this will hook us to heroku
 // var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
@@ -51,13 +57,13 @@ app.get("/scrape", function (req, res) {
                 .attr("href");
 
             // create database and store our scrape to it
-            // db.News.create(results)
-            //   .then(function(dbNews) {
-            //     console.log(dbNews)
-            //   })
-            //   .catch(function(err) {
-            //     console.log(err)
-            //   })
+            db.News.insert(results)
+              .then(function(dbNews) {
+                console.log(dbNews)
+              })
+              .catch(function(err) {
+                console.log(err)
+              })
         });
         console.log(results)
         console.log("////////////////////")  

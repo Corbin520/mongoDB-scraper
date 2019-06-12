@@ -21,6 +21,8 @@ var NewsSchema = new Schema ({
     }
 });
 
+
+
 var News = mongoose.model("News", NewsSchema);
 
 // Export the Article model
