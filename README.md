@@ -23,9 +23,9 @@
    * Working/Done: 
       * scraping the site and getting the resultes we want
       * schema set up for the DB
+      * get the response back from the DB
 
    * Need to Finish:
-      * get the response back from the DB
       * display it to the user using handlebars
       * Allowing user to leave a comment and store that in the DB
 
