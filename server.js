@@ -21,6 +21,9 @@ app.use(express.json());
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.connect(MONGODB_URI);
 
+// handlebars engine
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 // home route
 app.get("/", function (req, res) {
@@ -85,5 +88,5 @@ app.get("/news", function(req, res) {
 
 // Starting the server on PORT
 app.listen(PORT, function () {
-    console.log("App running on port " + PORT + "!");
+    console.log("Server listening on: http://localhost:" + PORT);
 });

@@ -1,0 +1,24 @@
+
+body {
+    background-image: url("../img/newsBackground.jpg");
+    background-size: cover;
+    width: 100%;
+    height: auto;
+}
+
+#scrape-button {
+    margin-right: 10px;
+}
+
+#home-button, #saved-button {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+h1 {
+    text-align: center;
+    padding-top: 50px;
+    color: white;
+    font-weight: bolder;
+    font-size: 75px;
+}
