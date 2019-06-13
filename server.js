@@ -26,9 +26,9 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // home route
-app.get("/", function (req, res) {
-    res.json("Home Route")
-});
+app.get("/", (req, res) => res.render("index"));
+app.get("/saved", (req, res) => res.render("saved"))
+
 // scrape route
 app.get("/scrape", function (req, res) {
 
@@ -75,7 +75,10 @@ app.get("/scrape", function (req, res) {
 });
 
 // get the items out of our database
-app.get("/news", function(req, res) {
+
+// app.get("/scrape") ** change back **
+app.get("/all", function(req, res) {
+    
     db.News.find({})
     .then(function(dbNews) {
         res.json(dbNews)
