@@ -21,4 +21,14 @@ h1 {
     color: white;
     font-weight: bolder;
     font-size: 75px;
+    margin-bottom: 200px;
+}
+
+#news-articles {
+    color: red;
+}
+
+#show-card{
+    display: none;
+    width: 100%;
 }
