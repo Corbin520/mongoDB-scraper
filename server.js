@@ -17,6 +17,9 @@ app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(express.static("public"));
+
+
 // this will hook us to heroku
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.connect(MONGODB_URI);
@@ -26,15 +29,15 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // home route
-app.get("/", (req, res) => res.render("index"));
+app.get("/", (req, res) => res.render("index")) ;
 app.get("/saved", (req, res) => res.render("saved"))
 
 // scrape route
 app.get("/scrape", function (req, res) {
-
+    
     console.log("")
     console.log("////////////////////")
-
+    
     // URL to site we are going to scrape
     axios.get("https://fox13now.com/category/news/").then(function (response) {
         res.json("scrape route")
@@ -86,6 +89,7 @@ app.get("/all", function(req, res) {
     .catch(function(dbNews) {
         console.log(err)
     })
+    
 });
 
 
