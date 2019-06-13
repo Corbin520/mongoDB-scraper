@@ -25,10 +25,24 @@ h1 {
 }
 
 #news-articles {
-    color: red;
+    color: black;
 }
 
-#show-card{
-    display: none;
-    width: 100%;
+#summary-text {
+    text-align: center;
+    font-family: 'Fjalla One', sans-serif;
+    color: gray;
+    font-size: 50px;
+}
+
+#button-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+#link-text {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bolder;
 }

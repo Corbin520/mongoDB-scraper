@@ -19,6 +19,8 @@ var NewsSchema = new Schema ({
         type: String,
         required: true
     }
+
+    // add a saved field that will be true or false
 });
 
 
