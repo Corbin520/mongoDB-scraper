@@ -44,8 +44,6 @@ $("#saved-button").on("click", function () {
 
     // get the articleid from the data attrabute
     var thisId = $(this).attr("data-id");
-    
-    console.log(thisId)
 
     $.ajax({
 

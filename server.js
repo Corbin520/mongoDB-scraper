@@ -93,6 +93,22 @@ app.get("/all", function(req, res) {
     
 });
 
+app.get("/saved", function(req, res) {
+    // find all with the value of 'true'
+    db.News.findOneAndUpdate({"_id": req.params.id}, {"saved:": true})
+    .then(function(dbNews) {
+        console.log(dbNews)
+    })
+    .catch(function(dbNews) {
+        // console.log(err)
+    })
+})
+
+
+
+
+
+
     // delete route 
 // app.get("/delete", function(req, res) {
 //     // this find is working
