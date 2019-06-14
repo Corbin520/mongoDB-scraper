@@ -1,13 +1,10 @@
 
-
 $("#scrape-button").on("click", function () {
 
-    // or do a EACH statement for handlebars
     $.getJSON("/all", function (data) {
-        // For each one
+       
         for (var i = 0; i < data.length; i++) {
-            // <button><p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].summary + "<br />" + data[i].link + "</p><br></button
-
+           
             $("#news-articles").append(`
             <div id="button-wrapper">
                 <div class="card" data-id="${data[i]._id}">
@@ -27,21 +24,50 @@ $("#scrape-button").on("click", function () {
 });
 
 $("#clear-button").on("click", function () {
-    // * We drop a collection with `db.[COLLECTION_NAME].drop()`
-    $.getJson("/all", function (data) {
-        db.News.drop({})
+    // button is working & alerting
+
+        // use delete route
+        // app.delete
+    // get the data in out click function
+    $.getJSON("/all", function (data) {
+        for (var j = 0; j < data.length; j++) {
+            // got our data back
+            console.log(data[j])      
+        }
     })
 })
 
+
+
 $("#saved-button").on("click", function () {
 
-    // on click this will save the article to the saved route
-    // call the save route
-    $.getJSON("/saved") // add codet
+
+    // get the articleid from the data attrabute
+    var thisId = $(this).attr("data-id");
+    
+    console.log(thisId)
+
+    $.ajax({
+
+        // POST it
+        method: "POST",
+        url: "/saved" + thisId + alert("I worked")
+    })
+    .then(function(data) {
+        console.log(data)
+    })
+    
+
 })
 
+
+
+
+
+// append to the saved page
+// find all the data with a 'true' and display it
+
 // on click "save article" {
-// get the articleid from the data attrabute
 // send a request to the back end and include the ID in the request (it can be included in the path, or body, or query string)
 // the back end will update the saved field of the article with the given ID to (true)
 //}

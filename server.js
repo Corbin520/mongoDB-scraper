@@ -85,12 +85,25 @@ app.get("/all", function(req, res) {
     db.News.find({})
     .then(function(dbNews) {
         res.json(dbNews)
+        
     })
     .catch(function(dbNews) {
-        console.log(err)
+        // console.log(err)
     })
     
 });
+
+    // delete route 
+// app.get("/delete", function(req, res) {
+//     // this find is working
+//     db.News.find({}).drop()
+//     .then(function(dbNews) {
+//         res.json(dbNews)
+//     })
+//     .catch(function(dbNews) {
+//         console.log(err)
+//     })
+// })
 
 
 // Starting the server on PORT

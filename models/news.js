@@ -18,9 +18,11 @@ var NewsSchema = new Schema ({
     link: {
         type: String,
         required: true
-    }
+    },
 
-    // add a saved field that will be true or false
+    saved: {
+        required: false
+    }
 });
 
 
