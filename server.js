@@ -38,7 +38,7 @@ app.get("/scrape", function (req, res) {
     
     // URL to site we are going to scrape
     axios.get("https://fox13now.com/category/news/").then(function (response) {
-        res.json("scrape route")
+        res.json("scrape route", response.data.length);
         // assign cheerio to '$'
         var $ = cheerio.load(response.data);
         var results = {};
