@@ -93,11 +93,23 @@ app.get("/all", function(req, res) {
     
 });
 
-app.get("/saved", function(req, res) {
+app.get("/saved/:id", function(req, res) {
     // find all with the value of 'true'
-    db.News.findOneAndUpdate({"_id": req.params.id}, {"saved:": true})
+    // db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true })
+    db.News.findOneAndUpdate({"_id": req.params.id}, {"saved": true}, {new: true})
     .then(function(dbNews) {
-        console.log(dbNews)
+        res.json(dbNews)
+    })
+    .catch(function(dbNews) {
+        // console.log(err)
+    });
+});
+
+app.get("/get/saved", function(req, res) {
+    db.News.find({"saved": true})
+    .then(function(dbNews) {
+        res.json(dbNews)
+        
     })
     .catch(function(dbNews) {
         // console.log(err)
