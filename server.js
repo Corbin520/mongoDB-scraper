@@ -35,44 +35,45 @@ app.get("/saved", (req, res) => res.render("saved"))
 // scrape route
 app.get("/scrape", function (req, res) {
     
-    
-    // URL to site we are going to scrape
-    axios.get("https://fox13now.com/category/news/").then(function (response) {
-        res.json("scrape route", response.data.length);
-        // assign cheerio to '$'
-        var $ = cheerio.load(response.data);
-        var results = {};
+    return scrape()
+        .then(results => {
+            return db.News.create(results)
+        })
+        .then(resultsArr => {
+            res.json(resultsArr);
+        })
 
-        $(".story").each(function (i, element) {
-
-            // * Headline - the title of the article
-            results.title = $(this)
-                .children(".extra")
-                .text()
-
-            // * Summary - a short summary of the article
-            results.summary = $(this)
-                .children("h4")
-                .text()
-
-            // * URL - the url to the original article
-            results.link = $(this)
-                .children("a")
-                .attr("href");
-            
-
-            // create database and store our scrape to it
-            db.News.create(results)
-              .then(function(dbNews) {
-                // console.log(dbNews)
-              })
-              .catch(function(err) {
-                // console.log(err)
-              })
-        });
-
-    });
 });
+
+function scrape() {
+        // URL to site we are going to scrape
+        return axios.get("https://fox13now.com/category/news/").then(function (response) {
+            // assign cheerio to '$'
+            var $ = cheerio.load(response.data);
+            var results = {};
+            var resultsArr = [];
+    
+            $(".story").each(function (i, element) {
+    
+                // * Headline - the title of the article
+                results.title = $(this)
+                    .children(".extra")
+                    .text()
+    
+                // * Summary - a short summary of the article
+                results.summary = $(this)
+                    .children("h4")
+                    .text()
+    
+                // * URL - the url to the original article
+                results.link = $(this)
+                    .children("a")
+                    .attr("href");
+                resultsArr.push(results);
+            });
+            return resultsArr;
+        });
+}
 
 app.get("/all", function(req, res) {
     

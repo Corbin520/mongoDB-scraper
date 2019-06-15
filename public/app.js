@@ -1,5 +1,6 @@
 
 $("#scrape-button").on("click", function () {
+    console.log("yo");
 
     $.getJSON("/scrape", function (data) {
        console.log(data,"did this fire")
