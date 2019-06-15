@@ -1,12 +1,12 @@
 // on document ready
 // make the call to the get/saved route and append to page
 
-$( document ).ready(function() {
+$(document).ready(function () {
 
     $.getJSON("/get/saved", function (data) {
-       
+
         for (var i = 0; i < data.length; i++) {
-           
+
             $("#news-articles").append(`
             <div id="button-wrapper">
                 <div class="card" data-id="${data[i]._id}">
@@ -14,11 +14,16 @@ $( document ).ready(function() {
             <div class="card-body">
                 <h3 id="summary-text">${data[i].summary}</h3>
                 <h3 id="link-text">${data[i].link}</h3>
-                <a href="" class="btn btn-secondary btn-lg btn-block">Save Article</a>
-                <a href="" class="btn btn-secondary btn-lg btn-block delete-article-button">Delete Article</a>
+                <a class="btn btn-secondary btn-lg btn-block btn-danger delete-article-button">Delete Article</a>
+                </div>
+                <form>
+                <div class="form-group">
+                <textarea class="form-control article input" id="exampleFormControlTextarea1" rows="3" placeholder="What did you like about this article?"></textarea>
+                </div>
+                </div>
+                </form>
+                <button type="button" class="btn btn-secondary btn-lg btn-block">Leave a comment on this article</button>
             </div>
-            </div>
-        </div>
         <br>    
             `);
         }
@@ -34,8 +39,6 @@ $( document ).ready(function() {
             //     console.log(data)
             //   alert("iv Been Clicked")  
             // })
-        }) 
+        })
     });
 });
-
-
