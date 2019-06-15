@@ -1,5 +1,4 @@
-// on document ready
-// make the call to the get/saved route and append to page
+
 
 $(document).ready(function () {
     getData()

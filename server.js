@@ -35,8 +35,6 @@ app.get("/saved", (req, res) => res.render("saved"))
 // scrape route
 app.get("/scrape", function (req, res) {
     
-    console.log("")
-    console.log("////////////////////")
     
     // URL to site we are going to scrape
     axios.get("https://fox13now.com/category/news/").then(function (response) {
@@ -72,14 +70,10 @@ app.get("/scrape", function (req, res) {
                 // console.log(err)
               })
         });
-        // console.log(results)
-        console.log("////////////////////")  
+
     });
 });
 
-// get the items out of our database
-
-// app.get("/scrape") ** change back **
 app.get("/all", function(req, res) {
     
     db.News.find({})
@@ -88,20 +82,19 @@ app.get("/all", function(req, res) {
         
     })
     .catch(function(dbNews) {
-        // console.log(err)
+        console.log(err)
     })
     
 });
 
 app.get("/saved/:id", function(req, res) {
-    // find all with the value of 'true'
-    // db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true })
+
     db.News.findOneAndUpdate({"_id": req.params.id}, {"saved": true}, {new: true})
     .then(function(dbNews) {
         res.json(dbNews)
     })
     .catch(function(dbNews) {
-        // console.log(err)
+        console.log(err)
     });
 });
 
@@ -112,7 +105,7 @@ app.delete("/deleted/:id", function(req, res) {
         res.json(dbNews)
     })
     .catch(function(dbNews) {
-        // console.log(err)
+        console.log(err)
     });
 });
 
@@ -123,26 +116,9 @@ app.get("/get/saved", function(req, res) {
         
     })
     .catch(function(dbNews) {
-        // console.log(err)
+        console.log(err)
     })
 })
-
-
-
-
-
-
-    // delete route 
-// app.get("/delete", function(req, res) {
-//     // this find is working
-//     db.News.find({}).drop()
-//     .then(function(dbNews) {
-//         res.json(dbNews)
-//     })
-//     .catch(function(dbNews) {
-//         console.log(err)
-//     })
-// })
 
 
 // Starting the server on PORT

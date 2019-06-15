@@ -34,19 +34,3 @@ $("#scrape-button").on("click", function () {
     });
 });
 
-$("#clear-button").on("click", function () {
-    // button is working & alerting
-
-        // use delete route
-        // app.delete
-    // get the data in out click function
-    $.getJSON("/all", function (data) {
-        for (var j = 0; j < data.length; j++) {
-            // got our data back
-            console.log(data[j])      
-        }
-    })
-})
-
-
-// save article
