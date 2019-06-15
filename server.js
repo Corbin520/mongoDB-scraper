@@ -6,7 +6,7 @@ var cheerio = require("cheerio");
 var axios = require("axios");
 
 // port that server will run on
-var PORT = 4000;
+var PORT = process.env.PORT || 4000;
 var app = express()
 
 // Require all models
@@ -119,7 +119,6 @@ app.get("/get/saved", function(req, res) {
         console.log(err)
     })
 })
-
 
 // Starting the server on PORT
 app.listen(PORT, function () {
