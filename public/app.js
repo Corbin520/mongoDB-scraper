@@ -1,7 +1,7 @@
 
 $("#scrape-button").on("click", function () {
 
-    $.getJSON("/all", function (data) {
+    $.getJSON("/scrape", function (data) {
        console.log(data,"did this fire")
         for (var i = 0; i < data.length; i++) {
            
