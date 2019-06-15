@@ -1,11 +1,9 @@
-
-
 $(document).ready(function () {
     getData()
 });
 
 function clearPage() {
-    
+
     $("#news-articles").empty()
 }
 
@@ -30,11 +28,12 @@ function writeToPage(data) {
             </div>
             <form>
             <div class="form-group">
-            <textarea class="form-control article input" id="exampleFormControlTextarea1" rows="3" placeholder="What did you like about this article?"></textarea>
-            </div>
+            <textarea class="form-control article input article-feedback" id="exampleFormControlTextarea1 " rows="3" placeholder="What did you like about this article?"></textarea>
             </div>
             </form>
-            <button type="button" class="btn btn-secondary btn-lg btn-block left-afticle-comment">Leave a comment on this article</button>
+            <button type="button" class="btn btn-secondary btn-lg btn-block left-afticle-comment">Submit Comment</button>
+            <br>
+            </div>
         </div>
     <br>    
         `);
@@ -53,7 +52,22 @@ function writeToPage(data) {
 
     })
     $(".left-afticle-comment").on("click", function () {
-        alert("Comment Button Clicked")
-    });
+        // get the value of the article feed back
 
+        // var feedBack = {
+        // }
+        // console.log(feedBack)
+
+        $.ajax({
+            method: "POST",
+            url: "/",
+            data: {
+                comment: $(".article-feedback").val()
+            }
+        })
+        .then(function(data) {
+            console.log(data)
+            $("id").empty()
+        });
+    });
 }

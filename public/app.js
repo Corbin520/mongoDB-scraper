@@ -1,9 +1,8 @@
 
 $("#scrape-button").on("click", function () {
-    console.log("yo");
 
     $.getJSON("/scrape", function (data) {
-       console.log(data,"did this fire")
+       console.log(data)
         for (var i = 0; i < data.length; i++) {
            
             $("#news-articles").append(`
