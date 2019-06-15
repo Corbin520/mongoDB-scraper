@@ -2,7 +2,7 @@
 $("#scrape-button").on("click", function () {
 
     $.getJSON("/all", function (data) {
-       console.log(data)
+       console.log(data,"did this fire")
         for (var i = 0; i < data.length; i++) {
            
             $("#news-articles").append(`
