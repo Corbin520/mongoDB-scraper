@@ -121,6 +121,6 @@ app.get("/get/saved", function(req, res) {
 })
 
 // Starting the server on PORT
-app.listen(process.env.PORT || 8080, function(){
+app.listen(process.env.PORT || 3000, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
   });
