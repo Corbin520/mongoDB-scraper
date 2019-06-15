@@ -105,6 +105,17 @@ app.get("/saved/:id", function(req, res) {
     });
 });
 
+app.delete("/deleted/:id", function(req, res) {
+
+    db.News.findOneAndUpdate({"_id": req.params.id}, {"saved": false}, {new: false})
+    .then(function(dbNews) {
+        res.json(dbNews)
+    })
+    .catch(function(dbNews) {
+        // console.log(err)
+    });
+});
+
 app.get("/get/saved", function(req, res) {
     db.News.find({"saved": true})
     .then(function(dbNews) {
