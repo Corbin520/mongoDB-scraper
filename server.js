@@ -39,12 +39,14 @@ app.get("/saved", (req, res) => res.render("saved"))
 // scrape route
 app.get("/scrape", function (req, res) {
 
-    return scrape()
+     scrape()
         .then(results => {
-            return db.News.create(results)
+             db.News.create(results)
         })
         .then(resultsArr => {
-            res.json(resultsArr);
+           db.News.find({}).then((data)=>{
+            res.json(data)
+           })
         })
 
 });
@@ -54,11 +56,11 @@ function scrape() {
     return axios.get("https://fox13now.com/category/news/").then(function (response) {
         // assign cheerio to '$'
         var $ = cheerio.load(response.data);
-        var results = {};
-
+        
         var resultsArr = [];
-
+        
         $(".story").each(function (i, element) {
+            var results = {};
 
             // * Headline - the title of the article
             results.title = $(this)
@@ -74,8 +76,11 @@ function scrape() {
             results.link = $(this)
                 .children("a")
                 .attr("href");
+                // console.log(results)
             resultsArr.push(results);
         });
+        
+        
         return resultsArr;
     });
 }
@@ -140,21 +145,54 @@ app.get("/get/saved", function (req, res) {
         })
 })
 
-// Starting the server on PORT
-app.listen(process.env.PORT || 3000, function () {
-    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-});
 
-// updating article with note route
-app.get("/submit/note/:id", function (req, res) {
 
-    db.News.findOne({
+
+// this route is for saving and updating the article notes
+app.post("/note/:id", function (req, res) {
+
+    // we then create a "create" req from db.News
+    db.Note.create(req.body)
+
+    return db.News.findOneAndUpdate({
+
+        // If a Note was created successfully, find one Article with an `_id` equal 
+        // to `req.params.id`. Update the Article to be associated with the new Note
             _id: req.params.id
-        })
-        .then(function (dbNews) {
+        }, {
+            note: dbNote._id
+        }, {
+            // { new: true } tells the query that we want it to return
+            // the updated User -- it returns the original by default
+            new: true
+
+            // Since our mongoose query returns a promise, we can chain 
+            // another `.then` which receives the result of the query
+        }).then(function (dbNews) {
+            // If we were able to successfully update an Article, send it back to the client
             res.json(dbNews)
         })
+
         .catch(function (err) {
+            // If there is an error, send the error
             res.json(err)
-        });
-})
+        })
+});
+
+
+
+
+app.listen(process.env.PORT || 3000, function () {
+    console.log("App is live on Port 3000")
+    // console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
+
+// how to get the comments to store...
+
+// what do we know?
+// We know that we need to get a route to our back end
+// We know that we will need to get a response back from the Db
+// We know that it needs to be stored in the db and update schema
+
+// what do we do?
+// We create a server route to the db and get a response.

@@ -1,10 +1,9 @@
 
 $("#scrape-button").on("click", function () {
 
-    $.getJSON("/scrape", function (data) {
+    $.get("/scrape", function (data) {
        console.log(data)
-        for (var i = 0; i < data.length; i++) {
-           
+        for (let i = 0; i < data.length; i++) {
             $("#news-articles").append(`
             <div id="button-wrapper">
                 <div class="card">

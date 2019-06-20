@@ -7,7 +7,8 @@ var NewsSchema = new Schema ({
 
     title: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
 
     summary: {
@@ -22,6 +23,15 @@ var NewsSchema = new Schema ({
 
     saved: {
         required: false
+    },
+
+    // note is where we will store the notes
+    note: {
+
+        type: Schema.Types.ObjectId,
+
+        // reference to the note
+        ref: "Note"
     }
 });
 

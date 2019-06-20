@@ -9,7 +9,7 @@ function clearPage() {
 
 function getData() {
     clearPage()
-    $.getJSON("/get/saved", function (data) {
+    $.get("/get/saved", function (data) {
         writeToPage(data)
     });
 }
@@ -51,23 +51,40 @@ function writeToPage(data) {
             })
 
     })
-    $(".left-afticle-comment").on("click", function () {
-        // get the value of the article feed back
 
-        // var feedBack = {
-        // }
-        // console.log(feedBack)
+    // if there is already a note, show it
+    // for appending, check 20/solved/app.js/lin3 28-34
+    // $(".left-afticle-comment").on("click", function () {
 
+    //     $("#notes").empty();
+
+    //     $.ajax({
+    //             method: "GET",
+    //             url: "/note/" + thisId
+    //         })
+    //         .then(function (data) {
+    //             console.log(data)
+    //             // If there's a note in the article
+    //             if (data.note) {
+    //                 // Place the title of the note in the title input
+    //                 $(".article-feedback").val(data.note.title);
+
+    //             }
+    //         });
+    // });
+    $(".left-afticle-comment").on("click", function() {
+        var thisId = $(this).attr("data-id");
+        console.log("Clicked")
         $.ajax({
             method: "POST",
-            url: "/",
+            url: "/note/" + thisId,
             data: {
-                comment: $(".article-feedback").val()
+                feedback: $(".article-feedback").val()
             }
         })
         .then(function(data) {
-            console.log(data)
-            $("id").empty()
-        });
-    });
+            console.log(data);
+            $("#.article-feedback").empty()
+        })
+    })
 }
